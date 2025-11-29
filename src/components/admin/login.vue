@@ -73,9 +73,9 @@ const handleLogin = async () => {
   error.value = ''
   const result = await authStore.signIn(form.email, form.password)
   
-  if (result.success && authStore.isAdmin) {
+  if (result.success && authStore.isAdmin()) {
     router.push('/admin')
-  } else if (result.success && !authStore.isAdmin) {
+  } else if (result.success && !authStore.isAdmin()) {
     error.value = 'Keine Admin-Berechtigung'
   } else {
     error.value = result.error || 'Login fehlgeschlagen'

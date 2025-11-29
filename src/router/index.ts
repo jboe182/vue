@@ -5,7 +5,7 @@ import Music from '@/views/Music.vue'
 import Shop from '@/views/Shop.vue'
 import Contact from '@/views/Contact.vue'
 import Admin from '@/views/Admin.vue'
-import AdminLogin from '@/components/admin/Login.vue'
+import AdminLogin from '@/components/admin/login.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
