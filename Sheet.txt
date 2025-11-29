@@ -1,0 +1,11 @@
+# Status prüfen
+git status
+
+# Alle Änderungen stagen
+git add .
+
+# Commit erstellen
+git commit -m "Beschreibung der Änderungen"
+
+# Auf GitHub/Bitbucket/etc. hochladen
+git push origin main
