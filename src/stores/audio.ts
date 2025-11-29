@@ -9,7 +9,7 @@ interface Track {
   audio_url?: string
   cover_url?: string
   lyrics?: string
-  contributors?: string[]
+  contributors?: string
 }
 
 export const useAudioStore = defineStore('audio', () => {
