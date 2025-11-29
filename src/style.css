@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Custom Band Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Band-specific custom styles */
+.band-gradient {
+    background: linear-gradient(135deg, #dc2626 0%, #000000 100%);
+}
+
+.audio-wave {
+    background: linear-gradient(90deg, #dc2626, #f59e0b, #dc2626);
+    background-size: 200% 100%;
+    animation: wave 2s infinite linear;
+}
+
+@keyframes wave {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

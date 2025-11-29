@@ -15,4 +15,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  // OptimizeDeps für bessere Performance
+  optimizeDeps: {
+    include: ['vue', 'vue-router', 'pinia']
+  },
+  // Build Optimierungen
+  build: {
+    target: 'esnext',
+    minify: 'esbuild'
+  }
 })
