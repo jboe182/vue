@@ -22,7 +22,12 @@
           <p class="text-gray-600 mb-1">{{ track.artist }}</p>
           <p class="text-gray-500 text-sm mb-4">{{ formatDuration(track.duration) }}</p>
           <button @click="playTrack(track)" 
-                  class="bg-band-primary text-white px-4 py-2 rounded hover:bg-red-700 transition w-full">
+                  :class="[
+                    'px-4 py-2 rounded transition w-full',
+                    audioStore.currentTrack?.id === track.id && audioStore.isPlaying
+                      ? 'bg-band-primary text-white'
+                      : 'bg-gray-300 text-gray-700 hover:bg-band-primary hover:text-white'
+                  ]">
             {{ audioStore.currentTrack?.id === track.id && audioStore.isPlaying ? 'Pause' : 'Play' }}
           </button>
         </div>

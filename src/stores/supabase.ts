@@ -61,19 +61,37 @@ export const useSupabaseStore = defineStore('supabase', () => {
 
             if (supabaseError) throw supabaseError
 
-            // Transform data to include full URLs if they are just filenames
-            const tracksWithUrls = (data || []).map(track => ({
-                ...track,
-                audio_url: track.audio_url?.startsWith('http')
+            // Transform data to include full URLs and load durations
+            const tracksWithUrls = await Promise.all((data || []).map(async track => {
+                const audio_url = track.audio_url?.startsWith('http')
                     ? track.audio_url
                     : track.audio_url
                         ? supabase.storage.from('music').getPublicUrl(track.audio_url).data.publicUrl
-                        : null,
-                cover_url: track.cover_url?.startsWith('http')
+                        : null
+
+                const cover_url = track.cover_url?.startsWith('http')
                     ? track.cover_url
                     : track.cover_url
                         ? supabase.storage.from('covers').getPublicUrl(track.cover_url).data.publicUrl
                         : null
+
+                // Load audio duration if not already set and audio_url exists
+                let duration = track.duration
+                if (!duration && audio_url) {
+                    try {
+                        const audioDuration = await loadAudioDuration(audio_url)
+                        duration = Math.floor(audioDuration)
+                    } catch (err) {
+                        console.warn(`Could not load duration for ${track.title}:`, err)
+                    }
+                }
+
+                return {
+                    ...track,
+                    audio_url,
+                    cover_url,
+                    duration
+                }
             }))
 
             tracks.value = tracksWithUrls
@@ -83,6 +101,20 @@ export const useSupabaseStore = defineStore('supabase', () => {
         } finally {
             loading.value = false
         }
+    }
+
+    // Helper function to load audio duration
+    const loadAudioDuration = (url: string): Promise<number> => {
+        return new Promise((resolve, reject) => {
+            const audio = new Audio()
+            audio.addEventListener('loadedmetadata', () => {
+                resolve(audio.duration)
+            })
+            audio.addEventListener('error', (e) => {
+                reject(e)
+            })
+            audio.src = url
+        })
     }
 
     return {
