@@ -1,16 +1,18 @@
 <template>
   <div id="app">
     <Header />
-    <main>
+    <main class="pb-20"> <!-- Added padding-bottom to prevent content from being hidden behind player -->
       <router-view />
     </main>
     <Footer />
+    <MusicPlayer />
   </div>
 </template>
 
 <script setup lang="ts">
 import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
+import MusicPlayer from '@/components/MusicPlayer.vue'
 </script>
 
 <style>

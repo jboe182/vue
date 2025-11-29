@@ -60,7 +60,23 @@ export const useSupabaseStore = defineStore('supabase', () => {
                 .order('release_date', { ascending: false })
 
             if (supabaseError) throw supabaseError
-            tracks.value = data || []
+
+            // Transform data to include full URLs if they are just filenames
+            const tracksWithUrls = (data || []).map(track => ({
+                ...track,
+                audio_url: track.audio_url?.startsWith('http')
+                    ? track.audio_url
+                    : track.audio_url
+                        ? supabase.storage.from('music').getPublicUrl(track.audio_url).data.publicUrl
+                        : null,
+                cover_url: track.cover_url?.startsWith('http')
+                    ? track.cover_url
+                    : track.cover_url
+                        ? supabase.storage.from('covers').getPublicUrl(track.cover_url).data.publicUrl
+                        : null
+            }))
+
+            tracks.value = tracksWithUrls
         } catch (err) {
             error.value = err instanceof Error ? err.message : 'Unknown error'
             console.error('Error fetching tracks:', err)
