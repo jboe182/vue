@@ -1,16 +1,11 @@
 # Status prüfen
+git status
 
+# Alle Änderungen stagen
+git add .
 
+# Commit erstellen
+git commit -m "Beschreibung der Änderungen"
 
-
-
-
-
-
-
-
-I notice you're providing Vue.js code, but based on my technical specifications, this project uses React/Next.js with Strapi backend. Let me help you implement similar functionality in the correct technology stack.
-
-If you're working with a music player component in React/Next.js, here's how to implement it:
-
-**File: `components/AudioPlayer.tsx`**
+# Auf GitHub/Bitbucket/etc. hochladen
+git push origin main

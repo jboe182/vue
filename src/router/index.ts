@@ -6,6 +6,8 @@ import Shop from '@/views/Shop.vue'
 import Contact from '@/views/Contact.vue'
 import Admin from '@/views/Admin.vue'
 import AdminLogin from '@/components/admin/login.vue'
+import CartView from '@/views/CartView.vue'
+import ProductDetailView from '@/views/ProductDetailView.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -14,8 +16,18 @@ const router = createRouter({
     { path: '/', component: Home },
     { path: '/about', component: About },
     { path: '/music', component: Music },
-    { path: '/shop', component: Shop },
+    { 
+      path: '/shop', 
+      component: Shop 
+    },
+    { 
+      path: '/shop/:id', 
+      name: 'product-detail',
+      component: ProductDetailView,
+      props: true 
+    },
     { path: '/contact', component: Contact },
+    { path: '/cart', name: 'cart', component: CartView },
     { path: '/admin', component: Admin, meta: { requiresAuth: true } },
     { path: '/admin/login', component: AdminLogin }
   ]
